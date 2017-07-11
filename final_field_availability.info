@@ -1,0 +1,11 @@
+name = Final Field Availability
+description = Verfügbarkeit des Final Fields in Abhängigkeit von anderen Feldern
+package = WEBversiert
+core = 7.x
+dependencies[] = field
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "final_field_availability"
+
+scripts[] = js/final_field_availability.js
+

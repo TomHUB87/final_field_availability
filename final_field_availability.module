@@ -1,0 +1,201 @@
+<?php
+
+
+function final_field_availability_node_submit($node, $form, &$form_state) {
+  if ($node->type == 'spiel' || $node->type == 'newcomer') {
+    $errors                          = array();
+    $field_einreichung_abgeschlossen = field_get_items('node',
+      $form_state['node'], 'field_einreichung_abgeschlossen');
+    $required_fields_count           = 12;
+    $field_spiel_website             = field_get_items('node',
+      $form_state['node'], 'field_spiel_website');
+    if (web_value_is_empty($field_spiel_website)) {
+      $errors[] = 'field_spiel_website';
+    }
+    $body = field_get_items('node', $form_state['node'], 'body');
+    if (value_is_empty($body)) {
+      $errors[] = 'body';
+    }
+    $field_genre = field_get_items('node', $form_state['node'], 'field_genre');
+    if (value_is_empty($field_genre)) {
+      $errors[] = 'field_genre';
+    }
+    $field_entwickler = field_get_items('node', $form_state['node'],
+      'field_entwickler');
+    if (value_is_empty($field_entwickler)) {
+      if($node->type == 'newcomer') {
+          $errors[] = 'field_entwickler_newcomer';
+      } else {
+          $errors[] = 'field_entwickler_spiel';
+      }
+    }
+    $field_entwickler_website = field_get_items('node', $form_state['node'],
+      'field_entwickler_website');
+    if (web_value_is_empty($field_entwickler_website)) {
+      $errors[] = 'field_entwickler_website';
+    }
+    $field_publisher = field_get_items('node', $form_state['node'],
+      'field_publisher');
+    if (value_is_empty($field_publisher)) {
+      if($node->type == 'newcomer') {
+        $errors[] = 'field_publisher_necomer';
+      } else {
+        $errors[] = 'field_publisher_spiel';
+      }
+    }
+    $field_publisher_website = field_get_items('node', $form_state['node'],
+      'field_publisher_website');
+    if (web_value_is_empty($field_publisher_website)) {
+      if($node->type == 'newcomer') {
+        $errors[] = 'field_publisher_website_newcomer';
+      } else {
+        $errors[] = 'field_publisher_website_spiel';
+      }
+    }
+    $field_plattformen = field_get_items('node', $form_state['node'],
+      'field_plattformen');
+    if (value_is_empty($field_plattformen)) {
+      $errors[] = 'field_plattformen';
+    }
+    $field_release_datum = field_get_items('node', $form_state['node'],
+      'field_release_datum');
+    if (value_is_empty($field_release_datum)) {
+      $errors[] = 'field_release_datum';
+    }
+    $field_usk_einstufung = field_get_items('node', $form_state['node'],
+      'field_usk_einstufung');
+    if (value_is_empty($field_usk_einstufung)) {
+      $errors[] = 'field_usk_einstufung';
+    }
+    $field_jury_preise = field_get_items('node', $form_state['node'],
+      'field_jury_preise');
+    if ($node->type == 'spiel') {
+      $required_fields_count++;
+      if (value_is_empty($field_jury_preise, 'target_id')) {
+        $errors[] = 'field_jury_preise';
+      }
+    }
+    $field_ftp_server_vorhanden = field_get_items('node', $form_state['node'],
+      'field_ftp_server_vorhanden');
+    if ($field_ftp_server_vorhanden[0]['value'] == 1) {
+      $required_fields_count++;
+      $field_link = field_get_items('node', $form_state['node'], 'field_link');
+      if (web_value_is_empty($field_link)) {
+        $errors[] = 'field_link';
+      }
+    }
+    else if ($field_ftp_server_vorhanden[0]['value'] == 0) {
+      $required_fields_count += 3;
+      $field_server_adresse = field_get_items('node', $form_state['node'],
+        'field_server_adresse');
+      if (value_is_empty($field_server_adresse)) {
+        $errors[] = 'field_server_adresse';
+      }
+      $field_benutzername = field_get_items('node', $form_state['node'],
+        'field_benutzername');
+      if (value_is_empty($field_benutzername)) {
+        $errors[] = 'field_benutzername';
+      }
+      $field_passwort = field_get_items('node', $form_state['node'],
+        'field_passwort');
+      if (value_is_empty($field_passwort)) {
+        $errors[] = 'field_passwort';
+      }
+    }
+    $field_screenshots_artworks = field_get_items('node',
+      $form_state['node'], 'field_screenshots_artworks');
+    if (value_is_empty($field_screenshots_artworks, 'fid')) {
+      $errors[] = 'field_screenshots_artworks_cover';
+    }
+    if ($node->type == 'newcomer') {
+      $field_spielkonzept = field_get_items('node',
+        $form_state['node'], 'field_spielkonzept');
+      $required_fields_count++;
+      if (value_is_empty($field_spielkonzept, 'fid')) {
+        $errors[] = 'field_spielkonzept';
+      }
+    }
+
+
+    $field_links_codes    = field_get_items('node', $form_state['node'],
+      'field_links_codes');
+    $field_online_inhalte = field_get_items('node', $form_state['node'],
+      'field_online_inhalte');
+    if ($field_online_inhalte[0]['value'] == 0 && $field_links_codes[0]['value'] == 0) {
+      $errors[] = 'online_offline_both_deselected';
+    }
+    if ($field_online_inhalte[0]['value'] == 1) {
+      $required_fields_count += 3;
+      $field_link_zum_spiel = field_get_items('node', $form_state['node'],
+        'field_link_zum_spiel');
+      if (web_value_is_empty($field_link_zum_spiel)) {
+        $errors[] = 'field_link_zum_spiel';
+      }
+      $field_keine_zugangscodes_benotig = field_get_items('node', $form_state['node'],
+        'field_keine_zugangscodes_benotig');
+      $field_art_des_codes = field_get_items('node', $form_state['node'],
+        'field_art_des_codes');
+      if (value_is_empty($field_keine_zugangscodes_benotig) && value_is_empty($field_art_des_codes)) {
+        $errors[] = 'field_art_des_codes';
+      }
+      $field_zugangscodes = field_get_items('node', $form_state['node'],
+        'field_zugangscodes');
+      if ($node->type == 'spiel' && value_is_empty($field_jury_preise,
+          'target_id') == FALSE && value_is_empty($field_keine_zugangscodes_benotig)
+      ) {
+        if (sizeof($field_zugangscodes) < (sizeof($field_jury_preise) * 8)) {
+          $errors[] = 'field_zugangscodes_count';
+        }
+        else {
+          foreach ($field_zugangscodes as $field_zugangscode) {
+            if ($field_zugangscode == '') {
+              $errors[] = '$field_zugangscode_empty';
+              break;
+            }
+          }
+        }
+      }
+      else if ($node->type == 'newcomer' && value_is_empty($field_keine_zugangscodes_benotig)) {
+        if (sizeof($field_zugangscodes) < 8) {
+          $errors[] = 'field_zugangscodes_count';
+        }
+        else {
+          foreach ($field_zugangscodes as $field_zugangscode) {
+            if ($field_zugangscode == '') {
+              $errors[] = '$field_zugangscode_empty';
+              break;
+            }
+          }
+        }
+      }
+      else if (value_is_empty($field_jury_preise, 'target_id') == FALSE) {
+        foreach ($field_zugangscodes as $field_zugangscode) {
+          if (isset($field_zugangscode['value']) && $field_zugangscode['value'] == '') {
+            $errors[] = '$field_zugangscode_empty';
+            break;
+          }
+        }
+      }
+    }
+    if ($field_einreichung_abgeschlossen && $field_einreichung_abgeschlossen[0]['value'] == 1) {
+      if (sizeof($errors) > 0) {
+        drupal_set_message(t('Cannot finish submission because:'), 'error');
+        foreach ($errors as $error) {
+          drupal_set_message(t('error_' . $error), 'error');
+        }
+        $form_state['node']->field_einreichung_abgeschlossen[LANGUAGE_NONE][0]['value'] = 0;
+      }
+    }
+    $finished_percent                                                        = sizeof($errors) == 0 ? '100%' : 100 - intval(sizeof($errors) / $required_fields_count * 100) . ' %';
+    $form_state['node']->field_bereits_eingegeben[LANGUAGE_NONE][0]['value'] = $finished_percent;
+  }
+}
+
+function value_is_empty($value, $value_name = NULL) {
+  $is_empty = sizeof($value) == 0 || $value[0][isset($value_name) ? $value_name : 'value'] == '';
+  return $is_empty;
+}
+
+function web_value_is_empty($value, $value_name = NULL) {
+  return (isset($value[0]['value']) && trim($value[0]['value']) == 'http://www.') || sizeof($value) == 0 || $value[0][isset($value_name) ? $value_name : 'value'] == '';
+}
