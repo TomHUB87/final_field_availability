@@ -17,6 +17,8 @@
 
 
             //uids that is used more than one times
+            var category_beste_story_id = '#edit-field-jury-preise-und-415';
+            var category_bester_sound_id = '#edit-field-jury-preise-und-417';
             var pictures_field_id = '#edit-field-screenshots-artworks';
             var spielkonzept_field_id = '#edit-field-spielkonzept';
             var link_zum_spiele_value_id = '#edit-field-link-zum-spiel-und-0-value';
@@ -30,7 +32,10 @@
             var post_zusendung = '#edit-field-links-codes-und';
             var online_inhalte = '#edit-field-online-inhalte-und';
             var no_access_codes = '#edit-field-keine-zugangscodes-benotig-und';
-            //ID's from elements to how or hide
+            //ID's from elements to show or hide
+            var category_is_beste_story_id = ['#edit-field-expose-und-ajax-wrapper',
+                '#edit-field-storyplot-und-ajax-wrapper'];
+            var category_is_bester_sound_id = ['#edit-field-sounddateien-und-ajax-wrapper'];
             var ftp_server_is_0 = ['#field-benutzername-add-more-wrapper',
                 '#field-hinweis-kommentar-add-more-wrapper',
                 '#field-server-adresse-add-more-wrapper',
@@ -241,10 +246,62 @@
             //A--------------------------Dependencies--------------------------A
             showOnChecked(ftp_server_id_0, ftp_server_is_0);
             showOnChecked(ftp_server_id_1, ftp_server_is_1);
+
+            showOnChecked(category_beste_story_id, category_is_beste_story_id);
+            showOnChecked(category_bester_sound_id, category_is_bester_sound_id);
+
             showOnChecked(online_inhalte, online_inhalte_is_checked);
             if ($(online_inhalte).is(":checked")) {
                 hideOnChecked(no_access_codes, no_access_codes_unchecked);
             }
+
+            $(category_beste_story_id).click(function () {
+                showOnChecked($(this), category_is_beste_story_id);
+                showEinreichenAbschliessenIfAllAvailable(
+                    all_needs_to_set_always_ids,
+                    all_needs_to_set_check_type,
+                    einreichung_abschliessen_id,
+                    add_fields_dependencies_field_ids,
+                    add_fields_dependencies_fields_values,
+                    add_fields_dependencies_fields_values_types,
+                    online_inhalte,
+                    post_zusendung,
+                    link_zum_spiele_value_id,
+                    art_des_codes_value_id,
+                    zugangs_codes_value_id,
+                    no_access_codes,
+                    field_result_value_id,
+                    field_error_values_id,
+                    is_spiel_form,
+                    is_newcomer_form,
+                    field_progress_values_id,
+                    field_costs_value_id,
+                    jury_preise_id);
+            });
+
+            $(category_bester_sound_id).click(function () {
+                showOnChecked($(this), category_is_bester_sound_id);
+                showEinreichenAbschliessenIfAllAvailable(
+                    all_needs_to_set_always_ids,
+                    all_needs_to_set_check_type,
+                    einreichung_abschliessen_id,
+                    add_fields_dependencies_field_ids,
+                    add_fields_dependencies_fields_values,
+                    add_fields_dependencies_fields_values_types,
+                    online_inhalte,
+                    post_zusendung,
+                    link_zum_spiele_value_id,
+                    art_des_codes_value_id,
+                    zugangs_codes_value_id,
+                    no_access_codes,
+                    field_result_value_id,
+                    field_error_values_id,
+                    is_spiel_form,
+                    is_newcomer_form,
+                    field_progress_values_id,
+                    field_costs_value_id,
+                    jury_preise_id);
+            });
 
             $(ftp_server_id_0).click(function () {
                 showOnChecked($(this), ftp_server_is_0);
