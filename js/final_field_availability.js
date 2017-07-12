@@ -25,6 +25,8 @@
             var art_des_codes_value_id = '#edit-field-art-des-codes-und-0-value';
             var zugangs_codes_value_id = '#edit-field-zugangscodes';
             var jury_preise_id = '#edit-field-jury-preise-und';
+            var expose_id = '#edit-field-expose';
+            var sounddateien_id = '#edit-field-sounddateien';
 
             //Elements that if checked let the elements show up or hide
             var ftp_server_id_0 = '#edit-field-ftp-server-vorhanden-und-0';
@@ -529,6 +531,25 @@
             }
         }
 
+
+        //TODO:HIER HIER HIER WEITERMACHEN FEHLERMELDUNG MANDATORY EXPOSE UND SOUNDATEIEN
+        var expose_id = '#edit-field-expose';
+        var sounddateien_id = '#edit-field-sounddateien';
+
+        if($('#edit-field-jury-preise-und-417').is(":checked")) {
+            console.log($(sounddateien_id + ' .file'));
+            $(sounddateien_id + ' .file').each(function (i, v) {
+                console.log('sounddateien file['+i+']:'+v);
+            });
+            //TODO: wenn keine Datei vorhanden fehlermeldung ausgeben ...
+        }
+        if($('#edit-field-jury-preise-und-415').is(":checked")) {
+            console.log($(expose_id + ' .file'));
+            $(expose_id + ' .file').each(function (i, v) {
+                console.log('expose file['+i+']:'+v);
+            });
+            //TODO: wenn keine Datei vorhanden fehlermeldung ausgeben ...
+        }
 
         //A--------------------------------add Fields which dependend on another field-------------------------A
         //Add Field with dependencies to other fields (dynamical via arrays)

@@ -75,6 +75,7 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
         $errors[] = 'field_jury_preise';
       }
     }
+
     $field_ftp_server_vorhanden = field_get_items('node', $form_state['node'],
       'field_ftp_server_vorhanden');
     if ($field_ftp_server_vorhanden[0]['value'] == 1) {
@@ -102,6 +103,7 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
         $errors[] = 'field_passwort';
       }
     }
+
     $field_screenshots_artworks = field_get_items('node',
       $form_state['node'], 'field_screenshots_artworks');
     if (value_is_empty($field_screenshots_artworks, 'fid')) {
