@@ -532,23 +532,45 @@
         }
 
 
-        //TODO:HIER HIER HIER WEITERMACHEN FEHLERMELDUNG MANDATORY EXPOSE UND SOUNDATEIEN
+        //Anzeige von Fehler wenn Dateien hier fehlen für Expose ODER Sounddateien!
         var expose_id = '#edit-field-expose';
         var sounddateien_id = '#edit-field-sounddateien';
 
         if($('#edit-field-jury-preise-und-417').is(":checked")) {
-            console.log($(sounddateien_id + ' .file'));
+            count_max_field++;
+            var sounddateien_file_counter = 0;
+
             $(sounddateien_id + ' .file').each(function (i, v) {
-                console.log('sounddateien file['+i+']:'+v);
+                sounddateien_file_counter++;
             });
-            //TODO: wenn keine Datei vorhanden fehlermeldung ausgeben ...
+
+            if(sounddateien_file_counter > 0) {
+                count_set_field++;
+                var errorElement = sounddateien_id + '-einreichen-error';
+                $(errorElement).remove();
+            } else {
+                var errorElement = sounddateien_id + '-einreichen-error';
+                $(errorElement).remove();
+                $('<p id="' + errorElement.substring(1) + '" style="color:#d0137e;">Es fehlt mindestens eine Soundatei</p>').insertBefore(sounddateien_id);
+            }
         }
         if($('#edit-field-jury-preise-und-415').is(":checked")) {
-            console.log($(expose_id + ' .file'));
+            count_max_field++;
+            var expose_file_counter = 0;
+
             $(expose_id + ' .file').each(function (i, v) {
-                console.log('expose file['+i+']:'+v);
+                expose_file_counter++;
             });
-            //TODO: wenn keine Datei vorhanden fehlermeldung ausgeben ...
+
+            if(expose_file_counter > 0) {
+                count_set_field++;
+                var errorElement = expose_id + '-einreichen-error';
+                $(errorElement).remove();
+            } else {
+                var errorElement = expose_id + '-einreichen-error';
+                $(errorElement).remove();
+                $('<p id="' + errorElement.substring(1) + '" style="color:#d0137e;">Es fehlt mindestens ein Expose</p>').insertBefore(expose_id);
+            }
         }
 
         //A--------------------------------add Fields which dependend on another field-------------------------A
