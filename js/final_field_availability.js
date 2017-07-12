@@ -73,6 +73,8 @@
             all_needs_to_set_always_ids.push('#edit-field-spiel-website-und-0-value');
             all_needs_to_set_always_ids.push('#edit-body-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-genre-und-select');
+            all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-entwicklers-und-select');
+            all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-publishers-und-select');
             all_needs_to_set_always_ids.push('#edit-field-entwickler-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-entwickler-website-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-publisher-und-0-value');
@@ -86,6 +88,8 @@
             var all_needs_to_set_check_type = [];
             all_needs_to_set_check_type.push('url');
             all_needs_to_set_check_type.push('textarea');
+            all_needs_to_set_check_type.push('choice_indirect');
+            all_needs_to_set_check_type.push('choice_indirect');
             all_needs_to_set_check_type.push('choice_indirect');
             all_needs_to_set_check_type.push('text');
             all_needs_to_set_check_type.push('url');
@@ -958,6 +962,10 @@
         userFieldValue.push(kein_text + 'Spielbeschreibung der Spielinfo-Kategorie');
         sourceField.push('edit-field-genre-und-select');
         userFieldValue.push(keine_auswahl + 'Genre der Spielinfo-Kategorie');
+        sourceField.push('edit-field-firmensitz-des-entwicklers-und-select');
+        userFieldValue.push(keine_auswahl + 'Firmensitz des Entwicklerstudios der Spielinfo-Kategorie');
+        sourceField.push('edit-field-firmensitz-des-publishers-und-select');
+        userFieldValue.push(keine_auswahl + 'Firmensitz der Publishers der Spielinfo-Kategorie');
         if (is_newcomer_form) {
             sourceField.push('edit-field-entwickler-und-0-value');
             userFieldValue.push(kein_text + 'Entwickler/Studententeam der Spielinfo-Kategorie');
@@ -965,7 +973,7 @@
             userFieldValue.push(kein_text + 'Hochschule der Spielinfo-Kategorie');
             sourceField.push('edit-field-publisher-website-und-0-value');
             userFieldValue.push(keine_url + 'Hochschul Webseite der Spielinfo-Kategorie');
-        } else {//gehedavon aus das es ein Spiel ist wenn kein Newcomer
+        } else {//Annahme Spiel wenn kein Newcomer
             sourceField.push('edit-field-entwickler-und-0-value');
             userFieldValue.push(kein_text + 'Entwickler-Studio der Spielinfo-Kategorie');
             sourceField.push('edit-field-publisher-und-0-value');
