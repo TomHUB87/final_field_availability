@@ -51,7 +51,7 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
     }
     $field_firmensitz_des_entwicklers = field_get_items('node',
         $form_state['node'], 'field_firmensitz_des_entwicklers');
-    if (value_is_empty($field_firmensitz_des_entwicklers, 'fid')) {
+    if (value_is_empty($field_firmensitz_des_entwicklers)) {
       $errors[] = 'field_firmensitz_des_entwicklers';
     }
     $field_publisher = field_get_items('node', $form_state['node'],
@@ -74,7 +74,7 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
     }
     $field_firmensitz_des_publishers = field_get_items('node',
         $form_state['node'], 'field_firmensitz_des_publishers');
-    if (value_is_empty($field_firmensitz_des_publishers, 'fid')) {
+    if (value_is_empty($field_firmensitz_des_publishers)) {
       $errors[] = 'field_firmensitz_des_publishers';
     }
     $field_plattformen = field_get_items('node', $form_state['node'],
