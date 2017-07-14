@@ -1,38 +1,33 @@
 (function ($) {
     $(function () {
 
-
-
         //entferne "n. v." und ein paar "others" in der newcomer/spiel einrichung
         var nicht_belegt_wert_felder = "n. v. ";
-        var anderer_wert_felder = "Others"; //durch ui von festgelegt nciht vorbelegt
 
         var deleteElement = $('#edit-field-gruendungsabsicht-und-select').find(".form-item:first-child");
         if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
             deleteElement.remove();
         }
-        var deleteElement = $('#edit-field-gruendungsabsicht-und-select').find(".form-item:last-child").remove();
-        if(deleteElement.find('label').html() == anderer_wert_felder) {
+        var deleteElement = $('#edit-field-gruendungsabsicht-und-select').find(".form-item:last-child");
+        if(deleteElement.find('label').html() == "Other ") {
             deleteElement.remove();
         }
-        var deleteElement = $('#edit-field-genre-und-select').find(".form-item:first-child").remove();
+        var deleteElement = $('#edit-field-genre-und-select').find(".form-item:first-child");
         if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
             deleteElement.remove();
         }
-        var deleteElement = $('#edit-field-usk-einstufung-und').find(".form-item:first-child").remove();
+        var deleteElement = $('#edit-field-usk-einstufung-und').find(".form-item:first-child");
         if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
             deleteElement.remove();
         }
-        var deleteElement = $('#edit-field-firmensitz-des-entwicklers-und-select').find(".form-item:first-child").remove();
+        var deleteElement = $('#edit-field-firmensitz-des-entwicklers-und-select').find(".form-item:first-child");
         if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
             deleteElement.remove();
         }
-        var deleteElement = $('#edit-field-firmensitz-des-publishers-und-select').find(".form-item:first-child").remove();
+        var deleteElement = $('#edit-field-firmensitz-des-publishers-und-select').find(".form-item:first-child");
         if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
             deleteElement.remove();
         }
-
-
 
         var is_spiel_form = $('#spiel-node-form').length == 1;
         var is_newcomer_form = $('#newcomer-node-form').length == 1;
