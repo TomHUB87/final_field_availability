@@ -1,5 +1,39 @@
 (function ($) {
     $(function () {
+
+
+
+        //entferne "n. v." und ein paar "others" in der newcomer/spiel einrichung
+        var nicht_belegt_wert_felder = "n. v. ";
+        var anderer_wert_felder = "Others"; //durch ui von festgelegt nciht vorbelegt
+
+        var deleteElement = $('#edit-field-gruendungsabsicht-und-select').find(".form-item:first-child");
+        if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
+            deleteElement.remove();
+        }
+        var deleteElement = $('#edit-field-gruendungsabsicht-und-select').find(".form-item:last-child").remove();
+        if(deleteElement.find('label').html() == anderer_wert_felder) {
+            deleteElement.remove();
+        }
+        var deleteElement = $('#edit-field-genre-und-select').find(".form-item:first-child").remove();
+        if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
+            deleteElement.remove();
+        }
+        var deleteElement = $('#edit-field-usk-einstufung-und').find(".form-item:first-child").remove();
+        if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
+            deleteElement.remove();
+        }
+        var deleteElement = $('#edit-field-firmensitz-des-entwicklers-und-select').find(".form-item:first-child").remove();
+        if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
+            deleteElement.remove();
+        }
+        var deleteElement = $('#edit-field-firmensitz-des-publishers-und-select').find(".form-item:first-child").remove();
+        if(deleteElement.find('label').html() == nicht_belegt_wert_felder) {
+            deleteElement.remove();
+        }
+
+
+
         var is_spiel_form = $('#spiel-node-form').length == 1;
         var is_newcomer_form = $('#newcomer-node-form').length == 1;
 
@@ -73,8 +107,10 @@
             all_needs_to_set_always_ids.push('#edit-field-spiel-website-und-0-value');
             all_needs_to_set_always_ids.push('#edit-body-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-genre-und-select');
-            all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-entwicklers-und-select');
-            all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-publishers-und-select');
+            if ((is_spiel_form)) {
+                all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-entwicklers-und-select');
+                all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-publishers-und-select');
+            }
             all_needs_to_set_always_ids.push('#edit-field-entwickler-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-entwickler-website-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-publisher-und-0-value');
@@ -89,8 +125,10 @@
             all_needs_to_set_check_type.push('url');
             all_needs_to_set_check_type.push('textarea');
             all_needs_to_set_check_type.push('choice_indirect');
-            all_needs_to_set_check_type.push('choice_indirect');
-            all_needs_to_set_check_type.push('choice_indirect');
+            if ((is_spiel_form)) {
+                all_needs_to_set_check_type.push('choice_indirect');
+                all_needs_to_set_check_type.push('choice_indirect');
+            }
             all_needs_to_set_check_type.push('text');
             all_needs_to_set_check_type.push('url');
             all_needs_to_set_check_type.push('text');
@@ -536,46 +574,49 @@
         }
 
 
-        //Anzeige von Fehler wenn Dateien hier fehlen für Expose ODER Sounddateien!
-        var expose_id = '#edit-field-expose';
-        var sounddateien_id = '#edit-field-sounddateien';
+        if (is_spiel_form) {
+            //Anzeige von Fehler wenn Dateien hier fehlen für Expose ODER Sounddateien!
+            var expose_id = '#edit-field-expose';
+            var sounddateien_id = '#edit-field-sounddateien';
 
-        if($('#edit-field-jury-preise-und-417').is(":checked")) {
-            count_max_field++;
-            var sounddateien_file_counter = 0;
+            if ($('#edit-field-jury-preise-und-417').is(":checked")) {
+                count_max_field++;
+                var sounddateien_file_counter = 0;
 
-            $(sounddateien_id + ' .file').each(function (i, v) {
-                sounddateien_file_counter++;
-            });
+                $(sounddateien_id + ' .file').each(function (i, v) {
+                    sounddateien_file_counter++;
+                });
 
-            if(sounddateien_file_counter > 0) {
-                count_set_field++;
-                var errorElement = sounddateien_id + '-einreichen-error';
-                $(errorElement).remove();
-            } else {
-                var errorElement = sounddateien_id + '-einreichen-error';
-                $(errorElement).remove();
-                $('<p id="' + errorElement.substring(1) + '" style="color:#d0137e;">Es fehlt mindestens eine Soundatei</p>').insertBefore(sounddateien_id);
+                if (sounddateien_file_counter > 0) {
+                    count_set_field++;
+                    var errorElement = sounddateien_id + '-einreichen-error';
+                    $(errorElement).remove();
+                } else {
+                    var errorElement = sounddateien_id + '-einreichen-error';
+                    $(errorElement).remove();
+                    $('<p id="' + errorElement.substring(1) + '" style="color:#d0137e;">Es fehlt mindestens eine Soundatei</p>').insertBefore(sounddateien_id);
+                }
+            }
+            if ($('#edit-field-jury-preise-und-415').is(":checked")) {
+                count_max_field++;
+                var expose_file_counter = 0;
+
+                $(expose_id + ' .file').each(function (i, v) {
+                    expose_file_counter++;
+                });
+
+                if (expose_file_counter > 0) {
+                    count_set_field++;
+                    var errorElement = expose_id + '-einreichen-error';
+                    $(errorElement).remove();
+                } else {
+                    var errorElement = expose_id + '-einreichen-error';
+                    $(errorElement).remove();
+                    $('<p id="' + errorElement.substring(1) + '" style="color:#d0137e;">Es fehlt mindestens ein Expose</p>').insertBefore(expose_id);
+                }
             }
         }
-        if($('#edit-field-jury-preise-und-415').is(":checked")) {
-            count_max_field++;
-            var expose_file_counter = 0;
 
-            $(expose_id + ' .file').each(function (i, v) {
-                expose_file_counter++;
-            });
-
-            if(expose_file_counter > 0) {
-                count_set_field++;
-                var errorElement = expose_id + '-einreichen-error';
-                $(errorElement).remove();
-            } else {
-                var errorElement = expose_id + '-einreichen-error';
-                $(errorElement).remove();
-                $('<p id="' + errorElement.substring(1) + '" style="color:#d0137e;">Es fehlt mindestens ein Expose</p>').insertBefore(expose_id);
-            }
-        }
 
         //A--------------------------------add Fields which dependend on another field-------------------------A
         //Add Field with dependencies to other fields (dynamical via arrays)
@@ -962,10 +1003,12 @@
         userFieldValue.push(kein_text + 'Spielbeschreibung der Spielinfo-Kategorie');
         sourceField.push('edit-field-genre-und-select');
         userFieldValue.push(keine_auswahl + 'Genre der Spielinfo-Kategorie');
-        sourceField.push('edit-field-firmensitz-des-entwicklers-und-select');
-        userFieldValue.push(keine_auswahl + 'Firmensitz des Entwicklerstudios der Spielinfo-Kategorie');
-        sourceField.push('edit-field-firmensitz-des-publishers-und-select');
-        userFieldValue.push(keine_auswahl + 'Firmensitz der Publishers der Spielinfo-Kategorie');
+        if (is_spiel_form) {
+            sourceField.push('edit-field-firmensitz-des-entwicklers-und-select');
+            userFieldValue.push(keine_auswahl + 'Firmensitz des Entwicklerstudios der Spielinfo-Kategorie');
+            sourceField.push('edit-field-firmensitz-des-publishers-und-select');
+            userFieldValue.push(keine_auswahl + 'Firmensitz der Publishers der Spielinfo-Kategorie');
+        }
         if (is_newcomer_form) {
             sourceField.push('edit-field-entwickler-und-0-value');
             userFieldValue.push(kein_text + 'Entwickler/Studententeam der Spielinfo-Kategorie');

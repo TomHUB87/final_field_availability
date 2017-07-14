@@ -10,15 +10,20 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
     $kategory_best_sound_choosen = false;
     $kategory_best_story_choosen = false;
 
-    $field_jury_preise = field_get_items('node', $form_state['node'],
-        'field_jury_preise');
 
-    foreach($field_jury_preise as $jury_counter => $jury_preis) {
+    if($node->type == 'spiel') {
+      $field_jury_preise = field_get_items('node', $form_state['node'],
+          'field_jury_preise');
 
-      if($jury_preis['target_id'] == 415) {
-        $kategory_best_story_choosen = true;
-      } else if($jury_preis['target_id'] == 417) {
-        $kategory_best_sound_choosen = true;
+      if($field_jury_preise) {
+        foreach($field_jury_preise as $jury_counter => $jury_preis) {
+
+          if($jury_preis['target_id'] == 415) {
+            $kategory_best_story_choosen = true;
+          } else if($jury_preis['target_id'] == 417) {
+            $kategory_best_sound_choosen = true;
+          }
+        }
       }
     }
 
@@ -49,10 +54,12 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
     if (web_value_is_empty($field_entwickler_website)) {
       $errors[] = 'field_entwickler_website';
     }
-    $field_firmensitz_des_entwicklers = field_get_items('node',
-        $form_state['node'], 'field_firmensitz_des_entwicklers');
-    if (value_is_empty($field_firmensitz_des_entwicklers)) {
-      $errors[] = 'field_firmensitz_des_entwicklers';
+    if ($node->type == 'spiel') {
+      $field_firmensitz_des_entwicklers = field_get_items('node',
+          $form_state['node'], 'field_firmensitz_des_entwicklers');
+      if (value_is_empty($field_firmensitz_des_entwicklers)) {
+        $errors[] = 'field_firmensitz_des_entwicklers';
+      }
     }
     $field_publisher = field_get_items('node', $form_state['node'],
       'field_publisher');
@@ -72,10 +79,12 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
         $errors[] = 'field_publisher_website_spiel';
       }
     }
-    $field_firmensitz_des_publishers = field_get_items('node',
-        $form_state['node'], 'field_firmensitz_des_publishers');
-    if (value_is_empty($field_firmensitz_des_publishers)) {
-      $errors[] = 'field_firmensitz_des_publishers';
+    if ($node->type == 'spiel') {
+      $field_firmensitz_des_publishers = field_get_items('node',
+          $form_state['node'], 'field_firmensitz_des_publishers');
+      if (value_is_empty($field_firmensitz_des_publishers)) {
+        $errors[] = 'field_firmensitz_des_publishers';
+      }
     }
     $field_plattformen = field_get_items('node', $form_state['node'],
       'field_plattformen');
@@ -98,7 +107,6 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
         $errors[] = 'field_jury_preise';
       }
     }
-
     $field_ftp_server_vorhanden = field_get_items('node', $form_state['node'],
       'field_ftp_server_vorhanden');
     if ($field_ftp_server_vorhanden[0]['value'] == 1) {
@@ -131,18 +139,20 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
     if (value_is_empty($field_screenshots_artworks, 'fid')) {
       $errors[] = 'field_screenshots_artworks_cover';
     }
-    if($kategory_best_sound_choosen) {
-      $field_soundateien = field_get_items('node',
-          $form_state['node'], 'field_sounddateien');
-      if (value_is_empty($field_soundateien, 'fid')) {
-        $errors[] = 'field_sounddateien';
+    if ($node->type == 'spiel') {
+      if($kategory_best_sound_choosen) {
+        $field_soundateien = field_get_items('node',
+            $form_state['node'], 'field_sounddateien');
+        if (value_is_empty($field_soundateien, 'fid')) {
+          $errors[] = 'field_sounddateien';
+        }
       }
-    }
-    if($kategory_best_story_choosen) {
-      $field_expose = field_get_items('node',
-          $form_state['node'], 'field_expose');
-      if (value_is_empty($field_expose, 'fid')) {
-        $errors[] = 'field_expose';
+      if($kategory_best_story_choosen) {
+        $field_expose = field_get_items('node',
+            $form_state['node'], 'field_expose');
+        if (value_is_empty($field_expose, 'fid')) {
+          $errors[] = 'field_expose';
+        }
       }
     }
     if ($node->type == 'newcomer') {
@@ -153,6 +163,8 @@ function final_field_availability_node_submit($node, $form, &$form_state) {
         $errors[] = 'field_spielkonzept';
       }
     }
+
+
     $field_links_codes    = field_get_items('node', $form_state['node'],
       'field_links_codes');
     $field_online_inhalte = field_get_items('node', $form_state['node'],
