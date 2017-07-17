@@ -102,7 +102,7 @@
             all_needs_to_set_always_ids.push('#edit-field-spiel-website-und-0-value');
             all_needs_to_set_always_ids.push('#edit-body-und-0-value');
             all_needs_to_set_always_ids.push('#edit-field-genre-und-select');
-            if ((is_spiel_form)) {
+            if (is_spiel_form) {
                 all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-entwicklers-und-select');
                 all_needs_to_set_always_ids.push('#edit-field-firmensitz-des-publishers-und-select');
             }
@@ -116,11 +116,14 @@
             all_needs_to_set_always_ids.push(jury_preise_id);
             all_needs_to_set_always_ids.push(pictures_field_id);
             all_needs_to_set_always_ids.push(spielkonzept_field_id);
+            if (is_newcomer_form) {
+                all_needs_to_set_always_ids.push('#edit-field-gruendungsabsicht-und-select');
+            }
             var all_needs_to_set_check_type = [];
             all_needs_to_set_check_type.push('url');
             all_needs_to_set_check_type.push('textarea');
             all_needs_to_set_check_type.push('choice_indirect');
-            if ((is_spiel_form)) {
+            if (is_spiel_form) {
                 all_needs_to_set_check_type.push('choice_indirect');
                 all_needs_to_set_check_type.push('choice_indirect');
             }
@@ -134,6 +137,9 @@
             all_needs_to_set_check_type.push('choice_indirect');
             all_needs_to_set_check_type.push('pictures');
             all_needs_to_set_check_type.push('files');
+            if (is_newcomer_form) {
+                all_needs_to_set_check_type.push('choice_indirect');
+            }
 
             //create an array with all fields
             var all_fields = [];
@@ -1047,6 +1053,8 @@
         userFieldValue.push(kein_text + 'Art des Codes der Bereitstellung-Kategorie');
         sourceField.push('field-zugangscodes-values');
         userFieldValue.push(keine_auswahl + 'Zugangscodes der Bereitstellung-Kategorie');
+        sourceField.push('edit-field-gruendungsabsicht-und-select');
+        userFieldValue.push(keine_auswahl + 'Gründungsabsicht');
 
 
         var fieldName = 'FieldNotFound';
